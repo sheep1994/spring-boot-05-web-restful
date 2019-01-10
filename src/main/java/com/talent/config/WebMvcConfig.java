@@ -1,8 +1,12 @@
 package com.talent.config;
 
+import com.talent.interceptor.LoginHandlerInterceptor;
 import com.talent.resolver.MyLocaleResolver;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,6 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
         registry.addViewController("/talent").setViewName("404");
+        registry.addViewController("/main.html").setViewName("dashboard");
     }
 
     /**
@@ -38,5 +43,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public MyLocaleResolver localeResolver() {
         return new MyLocaleResolver();
+    }
+
+    /**
+     * 添加自定义拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/index.html", "/", "/user/login");
     }
 }

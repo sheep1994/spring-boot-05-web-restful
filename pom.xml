@@ -28,6 +28,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- 引入其他servlet容器 -->
+        <!--<dependency>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>-->
+
         <!-- 引入jquery的webjars -->
         <dependency>
             <groupId>org.webjars</groupId>
